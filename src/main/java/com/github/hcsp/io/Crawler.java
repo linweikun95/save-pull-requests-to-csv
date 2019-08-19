@@ -21,14 +21,13 @@ public class Crawler {
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) {
         try {
             GHRepository gp = GitHub.connectAnonymously().getRepository(repo);
-            List<GHPullRequest> prs = gp.getPullRequests(GHIssueState.ALL);
+            List<GHPullRequest> prs = gp.getPullRequests(GHIssueState.OPEN);
 
-            CSVWriter csvW = new CSVWriter(new FileWriter(csvFile));
             List<String> allLines = new ArrayList<>();
             allLines.add(String.join(",", "number", "author", "title"));
             for (int i = 0; i < Math.min(n, prs.size()); i++) {
                 GHPullRequest pr = prs.get(i);
-                allLines.add(String.join(",", "" + pr.getNumber(), pr.getUser().getLogin(), pr.getTitle()));
+                allLines.add(String.join(",", "" + pr.getNumber(), "\"" + pr.getUser().getLogin() + "\"", "\"" + pr.getTitle() + "\""));
             }
             Files.write(csvFile.toPath(), allLines);
 
