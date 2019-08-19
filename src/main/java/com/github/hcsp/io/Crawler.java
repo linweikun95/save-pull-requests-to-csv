@@ -9,6 +9,7 @@ import org.kohsuke.github.GitHub;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,13 @@ public class Crawler {
             List<GHPullRequest> prs = gp.getPullRequests(GHIssueState.ALL);
 
             CSVWriter csvW = new CSVWriter(new FileWriter(csvFile));
-            List<String[]> allLines = new ArrayList<>();
-            allLines.add(new String[]{"number", "author", "title"});
+            List<String> allLines = new ArrayList<>();
+            allLines.add(String.join(", ", "number", "author", "title"));
             for (int i = 0; i < Math.min(n, prs.size()); i++) {
                 GHPullRequest pr = prs.get(i);
-                allLines.add(new String[]{"" + pr.getNumber(), pr.getUser().getLogin(), pr.getTitle()});
+                allLines.add(String.join(", ", "" + pr.getNumber(), pr.getUser().getLogin(), pr.getTitle()));
             }
-            csvW.writeAll(allLines);
+            Files.write(csvFile.toPath(), allLines);
 
         } catch (IOException e) {
             e.printStackTrace();
