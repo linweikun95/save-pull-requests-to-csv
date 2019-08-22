@@ -43,7 +43,7 @@ public class Crawler {
                 JSONArray jArray = JSON.parseArray(resultJson);
                 //利用阿里的库 JSONArray解析拿到的response
 
-                for (int j = 1; j < n + 1; j++) {
+                for (int j = 0; j < n ; j++) {
                     JSONObject object = (JSONObject) jArray.get(j);
                     //利用JSONObject 拿去需要的数据
                     number = object.getIntValue("number");
