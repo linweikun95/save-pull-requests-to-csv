@@ -38,6 +38,8 @@ public class Crawler {
     // number,author,title
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
+
+
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         List<GitHubPullRequest> pullRequestList = getFirstPageOfPullRequests(repo);
         List<String> lines = new ArrayList<>();
@@ -51,29 +53,32 @@ public class Crawler {
 
     public static List<GitHubPullRequest> getFirstPageOfPullRequests(String repo) throws IOException {
         List<GitHubPullRequest> gitHubPullRequests = new ArrayList<>();
+
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://github.com/" + repo + "/pulls");
-        CloseableHttpResponse response1 = httpclient.execute(httpGet);
+        CloseableHttpResponse response = httpclient.execute(httpGet);
         try {
-            System.out.println(response1.getStatusLine());
-            HttpEntity entity1 = response1.getEntity();
-            InputStream inputStream = entity1.getContent();
-            String html = IOUtils.toString(inputStream, "UTF-8");
-            Document document = Jsoup.parse(html);
-            ArrayList<Element> issues = document.select("js-issue-row");
+            System.out.println(response.getStatusLine());
+            HttpEntity entity = response.getEntity();
+            InputStream is = entity.getContent();
+            String html = IOUtils.toString(is, "UTF-8");
+            Document doc = Jsoup.parse(html);
+            ArrayList<Element> issues = doc.select(".js-issue-row");
             for (Element element : issues) {
-                String[] nb = element.select("opened-by").text().split(" ");
-                String author = nb[nb.length - 1];
-                String number = nb[0].replace("#", "");
+                String[] authorAndNumber = element.select(".opened-by").text().split(" ");
+                String number = authorAndNumber[0].replace("#", "");
+                String author = authorAndNumber[authorAndNumber.length - 1];
                 String title = element.child(0).child(1).child(0).text();
+
                 gitHubPullRequests.add(new GitHubPullRequest(number, title, author));
             }
-            // do something useful with the response body
-            // and ensure it is fully consumed
-            EntityUtils.consume(entity1);
+            EntityUtils.consume(entity);
         } finally {
-            response1.close();
+            response.close();
         }
+
         return gitHubPullRequests;
     }
+
+
 }
