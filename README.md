@@ -7,7 +7,7 @@ number,author,title
 12345,blindpirate,这是一个标题
 12345,FrankFang,这是第二个标题
 ```
-*提示：当 N 大于一定数值时需要考虑分页*
+*提示：如果你是用爬虫爬取网页或者调用 GitHub API，当 N 大于一定数值时需要考虑分页*
 - GitHub pulls API `https://api.github.com/repos/{repo}/pulls?page=1`
 - GitHub pulls page `https://github.com/{repo}/pulls?page=1`
 
