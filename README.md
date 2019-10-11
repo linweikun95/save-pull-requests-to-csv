@@ -7,6 +7,9 @@ number,author,title
 12345,blindpirate,这是一个标题
 12345,FrankFang,这是第二个标题
 ```
+*提示：当 N 大于一定数值时需要考虑分页*
+- GitHub pulls API `https://api.github.com/repos/{repo}/pulls?page=1`
+- GitHub pulls page `https://github.com/{repo}/pulls?page=1`
 
 在提交Pull Request之前，你应当在本地确保所有代码已经编译通过，并且通过了测试(`mvn clean test`)
 
