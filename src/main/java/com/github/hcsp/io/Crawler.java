@@ -54,28 +54,21 @@ public class Crawler {
             throw new Error("设置数量好吗!");
         }
         ArrayList<GitHubPullRequest> pullRequests = new ArrayList<>();
-
         double pages = n / PAGE_COUNT_DOUBLE;
-        int lastPageCount = n % PAGE_COUNT;
-
         for (int i = 0; i < pages; i++) {
             List<GitHubPullRequest> pullRequestOfPage = getPageOfPullRequests(repo, i + 1);
             pullRequests.addAll(pullRequestOfPage);
         }
-
         writeCSV(pullRequests, csvFile, n);
     }
 
     public static void writeCSV(List<GitHubPullRequest> pullRequests, File csvFile, int lineCount) throws IOException {
         ArrayList<String> lines = new ArrayList<>(lineCount + 1);
-
         lines.add("number,author,title");
-
         for (GitHubPullRequest item : pullRequests) {
             String line = item.number + "," + item.author + "," + item.title;
             lines.add(line);
         }
-
         FileUtils.writeLines(csvFile, lines);
     }
 
