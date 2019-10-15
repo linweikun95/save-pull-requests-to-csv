@@ -20,6 +20,7 @@ public class Crawler {
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
+        GitHub gitHub = GitHub.connectAnonymously();
         GHRepository ghRepository = gitHub.getRepository(repo);
         List<GHPullRequest> pullRequests = ghRepository.getPullRequests(GHIssueState.ALL);
         List<String> lines = new ArrayList<>();
@@ -27,15 +28,11 @@ public class Crawler {
         lines.add(head);
         for (int i = 0; i < n; i++) {
             int number = pullRequests.get(i).getNumber();
-            String name = pullRequests.get(i).getUser().getLogin();
+            String author = pullRequests.get(i).getUser().getLogin();
             String title = pullRequests.get(i).getTitle();
-            String line = number + "," + name + "," + title;
+            String line = number + "," + author + "," + title;
             lines.add(line);
         }
         Files.write(Paths.get(csvFile.getPath()), lines, Charset.defaultCharset(), StandardOpenOption.APPEND);
-    }
-
-    public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("golang/go", 10, File.createTempFile("csv", ""));
     }
 }
