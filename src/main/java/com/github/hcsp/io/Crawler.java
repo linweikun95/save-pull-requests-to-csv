@@ -28,7 +28,7 @@ public class Crawler {
             Integer number = pr.getInteger("number");
             String title = pr.getString("title");
             String author = pr.getJSONObject("user").getString("login");
-            list.add(number + "," + title + "," + author);
+            list.add(number + "," + author + "," + title);
         }
         Files.write(csvFile.toPath(), list);
     }
