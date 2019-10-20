@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.kevinsawicki.http.HttpRequest;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,8 +28,8 @@ public class Crawler {
             Integer number = pr.getInteger("number");
             String title = pr.getString("title");
             String author = pr.getJSONObject("user").getString("login");
-            list.add(number +","+ title +","+ author);
+            list.add(number + "," + title + "," + author);
         }
-        Files.write(csvFile.toPath(),list);
+        Files.write(csvFile.toPath(), list);
     }
 }
