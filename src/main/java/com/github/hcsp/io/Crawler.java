@@ -22,7 +22,7 @@ public class Crawler {
         JSONArray pulls = JSON.parseArray(response);
         List<String> list = new ArrayList<>();
         int length = Math.min(pulls.size(), n);
-        list.add("number" + "author" + "title");
+        list.add("number,author,title");
         for (int i = 0; i < length; i++) {
             JSONObject pr = pulls.getJSONObject(i);
             Integer number = pr.getInteger("number");
