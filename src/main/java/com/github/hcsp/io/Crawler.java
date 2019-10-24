@@ -32,16 +32,16 @@ public class Crawler {
             String str = IOUtils.toString(is, "UTF-8");
             JSONArray jsonArray = JSONArray.parseArray(str);
             List<java.io.Serializable> list = new ArrayList<>();
+            list.add("number,author,title\n");
 
             for (int i = 0; i < n; i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                int number = jsonObject.getInteger("number");
+                int number = jsonObject.getIntValue("number");
                 String author = jsonObject.getJSONObject("user").getString("login");
                 String title = jsonObject.getString("title");
-                list.add(number);
-                list.add(author);
-                list.add(title);
-                list.add("\n");
+                list.add(number + ",");
+                list.add(author + ",");
+                list.add(title + "\n");
             }
             FileUtils.writeLines(csvFile, list);
             EntityUtils.consume(entity1);
