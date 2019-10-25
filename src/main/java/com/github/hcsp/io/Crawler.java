@@ -32,21 +32,23 @@ public class Crawler {
             String str = IOUtils.toString(is, "UTF-8");
             JSONArray jsonArray = JSONArray.parseArray(str);
             List<java.io.Serializable> list = new ArrayList<>();
-            list.add("number,author,title\n");
+            list.add("number,author,title");
 
             for (int i = 0; i < n; i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 int number = jsonObject.getIntValue("number");
                 String author = jsonObject.getJSONObject("user").getString("login");
                 String title = jsonObject.getString("title");
-                list.add(number + ",");
-                list.add(author + ",");
-                list.add(title + "\n");
+                list.add(number + "," + author + "," + title );
             }
             FileUtils.writeLines(csvFile, list);
             EntityUtils.consume(entity1);
         } finally {
             response1.close();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        savePullRequestsToCSV("golang/go", 10, new File("/C/Users/eraser/Desktop/test.csv"));
     }
 }
