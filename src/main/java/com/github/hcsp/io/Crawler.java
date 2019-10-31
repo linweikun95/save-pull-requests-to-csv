@@ -27,7 +27,7 @@ public class Crawler {
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         List<GitHubPullRequest> list = getPullRequests(repo, n).subList(0, n);
         List<String> newList = new ArrayList<>();
-        newList.add("number, author, title");
+        newList.add("number,author,title");
         for (GitHubPullRequest element :
                 list) {
             newList.add(element.number+","+element.user.login+","+element.title);
