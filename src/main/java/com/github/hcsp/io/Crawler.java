@@ -21,12 +21,13 @@ public class Crawler {
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
     public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("gradle/gradle", 10, new File("/Users/Jason/Desktop/appTest/test.csv"));
+        savePullRequestsToCSV("gradle/gradle", 15, new File("/Users/Jason/Desktop/appTest/test.csv"));
     }
 
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
-        List<GitHubPullRequest> list = getPullRequests(repo, n);
+        List<GitHubPullRequest> list = getPullRequests(repo, n).subList(0, n);
         List<String> newList = new ArrayList<>();
+        newList.add("number, author, title");
         for (GitHubPullRequest element :
                 list) {
             newList.add(element.number+","+element.user.login+","+element.title);
@@ -36,7 +37,7 @@ public class Crawler {
 
     public static List<GitHubPullRequest> getPullRequests(String repoName, int n) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet("https://api.github.com/repos/" + repoName + "/pulls?page=1&per_page="+ n);
+        HttpGet request = new HttpGet("https://api.github.com/repos/" + repoName + "/pulls?page=1&per_page=20");
         CloseableHttpResponse response = client.execute(request);
         HttpEntity entity = response.getEntity();
         // return it as a String
