@@ -32,8 +32,4 @@ public class Crawler {
         csvPrinter.flush();
         csvPrinter.close();
     }
-
-    public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("gradle/gradle", 10, new File("pulls.csv"));
-    }
 }
