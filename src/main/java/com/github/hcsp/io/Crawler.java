@@ -27,7 +27,7 @@ public class Crawler {
 
         for (int i = 0; i < n; i++) {
             GHPullRequest pr = pullRequests.get(i);
-            csvPrinter.printRecord(pr.getId(), pr.getUser(), pr.getTitle());
+            csvPrinter.printRecord(pr.getId(), pr.getUser().getLogin(), pr.getTitle());
         }
         csvPrinter.flush();
         csvPrinter.close();
