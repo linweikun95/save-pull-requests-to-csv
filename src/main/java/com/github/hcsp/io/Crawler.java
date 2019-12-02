@@ -25,7 +25,7 @@ public class Crawler {
         CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader("number", "author", "title");
         CSVPrinter csvPrinter = new CSVPrinter(osw, csvFormat);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i< pullRequests.size() && i < n; i++) {
             GHPullRequest pr = pullRequests.get(i);
             csvPrinter.printRecord(pr.getId(), pr.getUser().getLogin(), pr.getTitle());
         }
