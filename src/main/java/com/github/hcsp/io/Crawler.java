@@ -61,9 +61,9 @@ public class Crawler {
             throw new IllegalArgumentException("Cannot write to file " + csvFile.getAbsolutePath());
         }
 
-        if (!csvFile.getName().endsWith(".csv")){
-            throw new IllegalArgumentException("File " + csvFile.getAbsolutePath() + " is not a csv file.");
-        }
+//        if (!csvFile.getName().endsWith(".csv")){
+//            throw new IllegalArgumentException("File " + csvFile.getAbsolutePath() + " is not a csv file.");
+//        }
     }
 
     private static List<GitHubPullRequest> getNPullRequests(String repo, int n) throws IOException {
