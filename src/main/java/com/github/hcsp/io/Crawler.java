@@ -25,7 +25,6 @@ public class Crawler {
             bufferedWriter.write(message);
         }
         bufferedWriter.flush();
-        bufferedWriter.close();
     }
 
 }
