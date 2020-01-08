@@ -1,4 +1,5 @@
 package com.github.hcsp.io;
+
 import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -13,14 +14,14 @@ public class Crawler {
     // number,author,title
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
-    public static void savePullRequestsToCSV(String repo,int n,File csv) throws IOException {
+    public static void savePullRequestsToCSV(String repo, int n, File csv) throws IOException {
         GHRepository repository = GitHub.connectAnonymously().getRepository(repo);
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(csv));
-        for (int i = 1; i <=n; i++) {
+        for (int i = 1; i <= n; i++) {
             GHPullRequest pullRequest = repository.getPullRequest(i);
-            String message = pullRequest.getNumber()+","
-                    +pullRequest.getUser().getLogin()+","
-                    +pullRequest.getTitle()+"\n";
+            String message = pullRequest.getNumber() + ","
+                    + pullRequest.getUser().getLogin() + ","
+                    + pullRequest.getTitle() + "\n";
             bufferedWriter.write(message);
         }
         bufferedWriter.flush();
