@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,16 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Crawler {
-   private static CloseableHttpClient httpClient = HttpClients.createDefault();
+    private static CloseableHttpClient httpClient = HttpClients.createDefault();
     private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36";
 
     // 给定一个仓库名，例如"golang/go"，或者"gradle/gradle"，读取前n个Pull request并保存至csvFile指定的文件中，格式如下：
     // number,author,title
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
-    public static void savePullRequestsToCSV(String repo, int n, File csvFile)  throws IOException {
+    public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         String result = httpGet(repo);
         JSONArray array = JSON.parseArray(result);
         List<String> list = new ArrayList<>();
@@ -60,6 +60,6 @@ public class Crawler {
     public static void main(String[] args) throws IOException {
         File projectDir = new File(System.getProperty("basedir", System.getProperty("user.dir")));
         File testFile = new File(projectDir, "target/test.csv");
-        savePullRequestsToCSV("gradle/gradle",5,testFile);
+        savePullRequestsToCSV("gradle/gradle", 5, testFile);
     }
 }
