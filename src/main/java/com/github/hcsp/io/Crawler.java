@@ -1,5 +1,6 @@
 package com.github.hcsp.io;
 
+import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRepository;
@@ -7,7 +8,7 @@ import org.kohsuke.github.GitHub;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Crawler {
@@ -15,27 +16,20 @@ public class Crawler {
     // number,author,title
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
-
-    public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("gradle/gradle",10,new File("pulls.csv"));
-    }
-
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         GitHub gitHub = GitHub.connectAnonymously();
         GHRepository repository = gitHub.getRepository(repo);
         List<GHPullRequest> pullRequests = repository.getPullRequests(GHIssueState.OPEN);
-
-        String csvFileContent = "number,author,title\n";
+        List<String> list = new ArrayList<>();
+        list.add("number,author,title");
 
         for (int i = 0; i < n; i++) {
             int number = pullRequests.get(i).getNumber();
-            String title = pullRequests.get(i).getTitle();
             String author = pullRequests.get(i).getUser().getLogin();
+            String title = pullRequests.get(i).getTitle();
+            list.add(number + "," +  author + "," + title);
 
-            String line = number + "," + title +"," + author + "\n";
-            csvFileContent += line;
         }
-
-        Files.write(csvFile.toPath(),csvFileContent.getBytes());
+        FileUtils.writeLines(csvFile, list);
     }
 }
