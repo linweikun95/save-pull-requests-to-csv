@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class Crawler {
+  public static void main(String[] args) throws IOException {
+    savePullRequestsToCSV("golang/go", 10, new File("x.csv"));
+  }
   // 给定一个仓库名，例如"golang/go"，或者"gradle/gradle"，读取前n个Pull request并保存至csvFile指定的文件中，格式如下：
   // number,author,title
   // 12345,blindpirate,这是一个标题
@@ -34,6 +37,6 @@ public class Crawler {
     int number = pullRequest.getNumber();
     String title = pullRequest.getTitle();
     String name = pullRequest.getUser().getName();
-    return number + title + name + "\n";
+    return number + "," + name + "," + title + "\n";
   }
 }
