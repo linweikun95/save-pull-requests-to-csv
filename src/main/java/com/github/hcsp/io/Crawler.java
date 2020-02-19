@@ -21,7 +21,7 @@ public class Crawler {
   public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
     GitHub github = GitHub.connectAnonymously();
     GHRepository ghRepository = github.getRepository(repo);
-    List<GHPullRequest> pullRequests = ghRepository.getPullRequests(GHIssueState.ALL);
+    List<GHPullRequest> pullRequests = ghRepository.getPullRequests(GHIssueState.OPEN);
 
     String csvContent = "number,author,title\n";
 
@@ -36,7 +36,7 @@ public class Crawler {
   private static String getPullRequestInfo(GHPullRequest pullRequest) throws IOException {
     int number = pullRequest.getNumber();
     String title = pullRequest.getTitle();
-    String name = pullRequest.getUser().getName();
-    return number + "," + name + "," + title + "\n";
+    String author = pullRequest.getUser().getLogin();
+    return number + "," + author + "," + title + "\n";
   }
 }
