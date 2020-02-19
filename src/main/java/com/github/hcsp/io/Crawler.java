@@ -37,8 +37,8 @@ public class Crawler {
         csvWriter.writeRecord(csvHeaders);
         // 写内容
         for (int i = 0; i < n; i++) {
-            String[] csvContent = {String.valueOf(pullRequests.get(i).getNumber()), pullRequests.get(i).getTitle(),
-                    pullRequests.get(i).getUser().getName() };
+            String[] csvContent = {String.valueOf(pullRequests.get(i).getNumber()),
+                    pullRequests.get(i).getUser().getName() , pullRequests.get(i).getTitle()};
             csvWriter.writeRecord(csvContent);
         }
         csvWriter.close();
