@@ -1,0 +1,11 @@
+number,author,title
+37578,RainbowMango,performance improvement for reading go.sum
+37571,codesoap,encoding/json: do not fill d.errorContext until deemed necessary
+37530,sding3,flag: exit 0 when -h or -help invoked but undefined
+37517,sipasing,AUTHORS file: correct organization name
+37491,gfx,"time: add ""Epoch"" to the doc of time.Unix()"
+37403,gawen,cmd/internal/objabi: enable frame-pointer for iOS arm64
+37256,darkfeline,go/ast: fix inflection in comments to match plurality
+37228,aka-rider,errors: add new function Temporary(error) bool
+37167,brompwnie,crypto/tls: This change removes the size parameter from the Generate functions
+37148,BurtonQin,src/runtime/testdata/testprogcgo: fix goroutine leak on timeout
