@@ -1,6 +1,9 @@
 package com.github.hcsp.io;
 
-import org.kohsuke.github.*;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GHPullRequest;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
 
 import java.io.*;
 import java.nio.file.Files;
