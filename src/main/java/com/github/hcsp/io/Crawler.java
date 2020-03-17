@@ -24,11 +24,10 @@ public class Crawler {
     // 12345,FrankFang,这是第二个标题
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         int page = 1;
-        String encoding = "UTF-8";
         List<String> saveL = new ArrayList<>();
         saveL.add("number,author,title");
 
-        // 保证获取到指定数量
+        // 获取指定条数
         while (n > 0) {
             List<GitHubPRInfo> prL = getPRInfo(repo, page);
             if (!prL.isEmpty()) {
@@ -40,7 +39,12 @@ public class Crawler {
                 page++;
             }
         }
-        FileUtils.writeLines(csvFile, encoding, saveL, encoding);
+        FileUtils.writeLines(csvFile, "UTF-8", saveL);
+    }
+
+    public static void main(String[] args) throws IOException {
+        File f = new File("./target/prInfo.csv");
+        savePullRequestsToCSV("golang/go", 40, f);
     }
 
     private static List<GitHubPRInfo> getPRInfo(String repo, int page) throws IOException {
