@@ -31,8 +31,6 @@ public class Crawler {
 
             list.add(number + "," + name + "," + title);
         }
-
-        FileUtils.writeLines(csvFile, "UTF-8", list);
+        FileUtils.writeLines(csvFile, "UTF-8", list, "true");
     }
-
 }
