@@ -36,9 +36,4 @@ public class Crawler {
             throw new UncheckedIOException(e);
         }
     }
-
-
-    public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("golang/go", 10, new File("pulls.csv"));
-    }
 }
