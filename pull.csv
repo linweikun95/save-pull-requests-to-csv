@@ -1,0 +1,11 @@
+number,author,title
+39073,encoding/asn1: respect omitempty when marshaling nil values,chriskaly
+39015,container/list: check the list state before mutation,gobwas
+38997,net/http: remove redundant numeric StatusCode from Status message,kkroo
+38938,crypto/rand: use BCryptGenRandom instead of CryptGenRandom on Windows,neolit123
+38854,image/gif: treat NUL byte between sections or before trailer as trailer,kamermans
+38834,testing: reduce memory allocation in Helper(),bboreham
+38814,cmd: fail go mod vendor on case-insensitive import collisions,justplesh
+38809,crypto/tls: add r.Lock to protect r.flows in WriteTo,BurtonQin
+38808,pkg/regexp: fix example for Match function,MatGarreau
+38779,crypto/x509: subject/issuer hint fallback for unknown-authority errors,wking

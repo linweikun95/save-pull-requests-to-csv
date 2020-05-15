@@ -14,7 +14,7 @@ public class CrawlerTest {
     @Test
     public void test() throws Exception {
         File tmp = File.createTempFile("csv", "");
-        Crawler.savePullRequestsToCSV("golang/go", 10, tmp);
+        Crawler.savePullRequestsToCSV("golang/go", tmp);
 
         CSVReader reader = new CSVReader(new BufferedReader(new FileReader(tmp)));
         List<String[]> lines = reader.readAll();
