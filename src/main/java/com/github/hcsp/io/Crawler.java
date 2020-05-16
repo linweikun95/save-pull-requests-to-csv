@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Crawler {
     public static void main(String[] args) throws IOException {
-        savePullRequestsToCSV("golang/go",10, new File("pull.csv"));
+        savePullRequestsToCSV("golang/go", 10, new File("pull.csv"));
     }
 
     // 给定一个仓库名，例如"golang/go"，或者"gradle/gradle"，读取前n个Pull request并保存至csvFile指定的文件中，格式如下：
