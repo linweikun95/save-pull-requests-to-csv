@@ -31,7 +31,7 @@ public class Crawler {
             String title = pullRequests.get(i).getTitle();
             String author = pullRequests.get(i).getUser().getLogin();
 
-            String line = "" + number + "," + title + "," + author + "\n";
+            String line = "" + number + "," + author + "," + title + "\n";
             csvFileContent.append(line);
         }
         Files.write(csvFile.toPath(), csvFileContent.toString().getBytes());
