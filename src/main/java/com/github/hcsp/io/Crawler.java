@@ -11,7 +11,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +31,10 @@ public class Crawler {
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile))) {
             writer.writeNext(new String[]{"number", "author", "title"});
             int page = n / PER_PAGE + 1;
+            int num = n;
             for (int i = 1; i <= page; i++) {
-                n = n - (PER_PAGE * (i - 1));
-                savePullRequestsToCSV("https://api.github.com/repos/" + repo + "/pulls?page=" + page, writer, n);
+                num -= (PER_PAGE * (i - 1));
+                savePullRequestsToCSV("https://api.github.com/repos/" + repo + "/pulls?page=" + page, writer, num);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,8 +52,9 @@ public class Crawler {
             String html = IOUtils.toString(content, StandardCharsets.UTF_8);
             JSONArray objects = JSON.parseArray(html);
             List<String[]> data = new ArrayList<>();
+            int num = n;
             for (Object object : objects) {
-                if (n == 0) {
+                if (num == 0) {
                     break;
                 }
                 String[] line = new String[3];
@@ -57,7 +63,7 @@ public class Crawler {
                 line[1] = (String) ((JSONObject) user).get("login");
                 line[0] = String.valueOf(((JSONObject) object).get("number"));
                 data.add(line);
-                n--;
+                num--;
             }
             writer.writeAll(data);
         }
