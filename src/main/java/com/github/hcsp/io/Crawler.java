@@ -33,7 +33,7 @@ public class Crawler {
             int page = n / PER_PAGE + 1;
             int num = n;
             for (int i = 1; i <= page; i++) {
-                num -= (PER_PAGE * (i - 1));
+                num -= PER_PAGE * (i - 1);
                 savePullRequestsToCSV("https://api.github.com/repos/" + repo + "/pulls?page=" + page, writer, num);
             }
         } catch (IOException e) {
