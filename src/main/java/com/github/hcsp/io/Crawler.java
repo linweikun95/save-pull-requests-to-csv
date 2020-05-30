@@ -27,7 +27,7 @@ public class Crawler {
     // 12345,FrankFang,这是第二个标题
     private static final int PER_PAGE = 30;
 
-    public static void savePullRequestsToCSV(String repo, int n, File csvFile) {
+    public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
         try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile))) {
             writer.writeNext(new String[]{"number", "author", "title"});
             int page = n / PER_PAGE + 1;
@@ -36,8 +36,6 @@ public class Crawler {
                 num -= PER_PAGE * (i - 1);
                 savePullRequestsToCSV("https://api.github.com/repos/" + repo + "/pulls?page=" + page, writer, num);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
