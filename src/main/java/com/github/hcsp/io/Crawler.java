@@ -43,7 +43,6 @@ public class Crawler {
                 Object authorObject = ((JSONObject) obj).get("user");
                 String author = ((JSONObject) authorObject).get("login").toString();
                 String title = ((JSONObject) obj).get("title").toString();
-
                 list.add(numStr + "," + author + "," + title);
             }
             Files.write(csvFile.toPath(), list);
