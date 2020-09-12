@@ -17,7 +17,7 @@ public class Crawler {
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
-        Document document = Jsoup.connect(repo).get();
+        Document document = Jsoup.connect("https://github.com/"+repo+"/pulls").get();
         ArrayList<Element> selecteddiv = document.select(".js-issue-row");
         List<String> list = new ArrayList<>();
         list.add("number,author,title");
