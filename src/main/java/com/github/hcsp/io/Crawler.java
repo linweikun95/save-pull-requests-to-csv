@@ -25,7 +25,7 @@ public class Crawler {
             String title = element.child(0).child(1).child(0).text();
             String author = element.child(0).child(1).children().select(".text-small").select(".opened-by").select(".muted-link").text();
             String numberlong = element.child(0).child(1).children().select(".text-small").select(".opened-by").text();
-            int number = Integer.parseInt(numberlong.substring(1, 6));
+            String number = numberlong.substring(1, 6);
             list.add(number + "," + author + "," + title);
         }
         Files.write(csvFile.toPath(), list, Charset.defaultCharset());
