@@ -21,7 +21,11 @@ public class Crawler {
         ArrayList<Element> selecteddiv = document.select(".js-issue-row");
         List<String> list = new ArrayList<>();
         list.add("number,author,title");
+        int i = 0;
         for (Element element : selecteddiv) {
+            if (i >= n) {
+                break;
+            }
             String title = element.child(0).child(1).child(0).text();
             String author = element.child(0).child(1).children().select(".text-small").select(".opened-by").select(".muted-link").text();
             String numberlong = element.child(0).child(1).children().select(".text-small").select(".opened-by").text();
@@ -29,6 +33,7 @@ public class Crawler {
             list.add(number + "," + author + "," + title);
         }
         Files.write(csvFile.toPath(), list, Charset.defaultCharset());
+        i++;
 
     }
 }
