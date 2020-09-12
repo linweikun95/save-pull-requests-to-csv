@@ -17,15 +17,11 @@ public class Crawler {
     // 12345,blindpirate,这是一个标题
     // 12345,FrankFang,这是第二个标题
     public static void savePullRequestsToCSV(String repo, int n, File csvFile) throws IOException {
-        Document document = Jsoup.connect("https://github.com/gradle/gradle/pulls").get();
+        Document document = Jsoup.connect(repo).get();
         ArrayList<Element> selecteddiv = document.select(".js-issue-row");
         List<String> list = new ArrayList<>();
         list.add("number,author,title");
-        int i = 0;
         for (Element element : selecteddiv) {
-            if (i >= n) {
-                break;
-            }
             String title = element.child(0).child(1).child(0).text();
             String author = element.child(0).child(1).children().select(".text-small").select(".opened-by").select(".muted-link").text();
             String numberlong = element.child(0).child(1).children().select(".text-small").select(".opened-by").text();
@@ -33,7 +29,6 @@ public class Crawler {
             list.add(number + "," + author + "," + title);
         }
         Files.write(csvFile.toPath(), list, Charset.defaultCharset());
-        i++;
 
     }
 }
